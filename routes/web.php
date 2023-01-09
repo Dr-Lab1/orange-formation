@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,7 +17,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
+
+Route::get('articles', [ArticleController::class, 'index'])->name('articles');
+
+Route::get('article/{id}', [ArticleController::class, 'article'])->name('article');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
