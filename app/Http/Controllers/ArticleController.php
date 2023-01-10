@@ -2,36 +2,44 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
     //
+
     public function index () {
 
-        $articles = [
-            1 =>'formation node.js',
-            2 =>'formation php',
-            3 =>'formation wordpress'
-        ];
+        $articles = Article::all();
 
-        // dd($articles);
-        // $articles = [];
         return view('app.articles', compact('articles'));
 
     }
 
     public function article($id) {
-        $articles = [
-            1 =>'formation node.js',
-            2 =>'formation php',
-            3 =>'formation wordpress'
-        ];
 
-        $article = $articles[$id];
+        $article = Article::find($id);
 
         return view('app.article', compact('article'));
         
 
+    }
+
+    public function store(Request $request) {
+
+        $request->validate([
+            'title' => ['required'],
+            'slug' => ['required'],
+            'content' => ['required']
+        ]);
+
+        Article::create([
+            'title' => $request->title,
+            'slug' => $request->slug,
+            'content' => $request->content
+        ]);
+
+        return redirect()->route('articles');
     }
 }

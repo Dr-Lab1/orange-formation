@@ -21,7 +21,22 @@ Route::get('/', function () {
 
 Route::get('articles', [ArticleController::class, 'index'])->name('articles');
 
+Route::get('article/add', function () {
+    return view('app.create');
+})->name('add_article');
+
+Route::post('article/add', [ArticleController::class, 'store'])->name('store');
+
 Route::get('article/{id}', [ArticleController::class, 'article'])->name('article');
+
+
+
+
+
+
+
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
